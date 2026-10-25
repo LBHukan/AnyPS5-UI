@@ -30,9 +30,13 @@ if (!(Test-Path -LiteralPath $vswhere)) { throw 'vswhere nao encontrado para loc
 $visualStudio = & $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
 $redistVersionFile = Join-Path $visualStudio 'VC/Auxiliary/Build/Microsoft.VCRedistVersion.default.txt'
 $redistVersion = (Get-Content -LiteralPath $redistVersionFile -Raw).Trim()
-$crt = Join-Path $visualStudio "VC/Redist/MSVC/$redistVersion/x64/Microsoft.VC143.CRT"
-if (!(Test-Path -LiteralPath $crt)) { throw "Runtime C++ nao encontrado: $crt" }
-Get-ChildItem -LiteralPath $crt -Filter '*.dll' | ForEach-Object {
+$redistDirectory = Join-Path $visualStudio "VC/Redist/MSVC/$redistVersion/x64"
+$crt = Get-ChildItem -LiteralPath $redistDirectory -Directory -Filter 'Microsoft.VC*.CRT' | Select-Object -First 1
+if (!$crt) { throw "Runtime C++ nao encontrado: $redistDirectory" }
+foreach ($required in @('vcruntime140.dll', 'msvcp140.dll')) {
+    if (!(Test-Path -LiteralPath (Join-Path $crt.FullName $required))) { throw "Runtime C++ incompleto: $required" }
+}
+Get-ChildItem -LiteralPath $crt.FullName -Filter '*.dll' | ForEach-Object {
     Copy-Item -LiteralPath $_.FullName -Destination $stage
 }
 $downloads = Join-Path $stage 'downloads'

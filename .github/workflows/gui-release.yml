@@ -3,7 +3,7 @@ name: Flutter desktop release
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/gui-release.yml']
+    paths: ['.github/workflows/gui-release.yml', 'tools/package_gui.ps1']
   workflow_dispatch:
 
 permissions:
