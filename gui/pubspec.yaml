@@ -1,0 +1,14 @@
+name: anyps5_gui
+description: Interface desktop para os parametros do AnyPS5.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: ^3.10.7
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
