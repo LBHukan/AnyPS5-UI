@@ -1,5 +1,9 @@
 # AnyPS5 Studio
 
+## Download para Windows
+
+Baixe o ZIP portátil em [Releases](https://github.com/LBHukan/AnyPS5-UI/releases/latest), extraia todos os arquivos e abra `Iniciar AnyPS5.cmd`. O pacote inclui a interface, o relinker e as bibliotecas oficiais; não exige instalar Flutter, Visual Studio ou Python. Jogos e recursos não estão incluídos.
+
 Interface Flutter desktop para Windows, em português. Inicie com `Iniciar AnyPS5.cmd` na raiz do projeto. O executável compilado está em `gui/build/windows/x64/runner/Release/anyps5_gui.exe`; mantenha `data/` e `flutter_windows.dll` ao lado dele.
 
 Após clonar do GitHub, o lançador baixa os binários oficiais v0.1.3 e confere seus hashes SHA-256 antes de compilar e iniciar a interface. Os binários, caches, configurações pessoais e arquivos de jogos ficam fora do controle de versão. Também é possível preparar os binários manualmente com `powershell -NoProfile -ExecutionPolicy Bypass -File tools/setup_gui.ps1`, a partir da raiz.
